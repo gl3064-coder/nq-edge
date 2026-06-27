@@ -1,0 +1,16 @@
+# Personal trading data and licensed feeds — NEVER publish
+data/
+Replay Data/
+*.csv
+*.pkl
+
+# Trade screenshots (personal) - do not publish
+NQ Losses/
+Trade Images/
+
+# Generated output
+output/
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
