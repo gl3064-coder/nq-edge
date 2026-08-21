@@ -53,12 +53,16 @@ round, the right move would have been to keep Trail30 and eat the worse number.
 
 | | fixed +30/-20 (official) | Trail30 (his ATM) |
 |---|---|---|
-| **Trades** | **25** | 25 |
-| **Points** | **+250.5** | +188.8 |
-| **Per trade** | **+10.02** | +7.55 |
-| **Win rate** | 64% | 64% |
-| **Approx. $ on 1 contract** | **+$5,010** | +$3,776 |
-| Progress to 1,000 | **2.5%** | — |
+| **Trades** | **52** | 52 |
+| **Points** | **+31.7** | −5.2 |
+| **Per trade** | **+0.61** | −0.10 |
+| **Win rate** | 44% | 44% |
+| **Approx. $ on 1 contract** | **+$634** | −$104 |
+| Progress to 1,000 | **5.2%** | — |
+
+*Last updated 2026-08-21, after the 8/2-8/21 export. The prior tally (34 trades,
++220.5, +6.49/trade, 56%) is superseded, not deleted. Trail30 has crossed into
+negative for the first time.*
 
 ## Sessions
 
@@ -82,11 +86,116 @@ Me vs Bot (Daily)). This file is the project-side mirror. Log every session ther
 | 2026-07-30 | 1 | **+30.0** | +18.8 | tape gate cut 13 arrows to 1; leg gate neutral |
 | 2026-07-31 | 1 | **+30.0** | +11.5 | same shape as 7/30; leg gate neutral again |
 | 2026-08-03 | 2 | **+48.5** | +35.5 | v1 beat v2 on a green day, same as 7/28. Expected. Do not tune on it. |
+| 2026-08-04 | 2 | **+10.0** | −6.8 | one each way; leg gate neutral. The two exits disagree in sign. |
+| 2026-08-05 | 3 | **−60.0** | −60.0 | worst session so far. All 3 on the same failing leg — see note below. |
+| 2026-08-06 | 1 | **−20.0** | −20.0 | both gates cut the loss (v1 −100 → tape −40 → v2 −20), every survivor still lost |
+| 2026-08-07 | 3 | **+40.0** | +36.8 | v1 beat v2 on a green day again. Do not tune on it. |
+| 2026-08-10 | 3 | **−10.0** | −7.0 | two stops then a +30; leg gate neutral |
+| 2026-08-11 | 3 | **−60.0** | −60.0 | three stops in 48 min on the same failing structure. See cluster note. |
+| 2026-08-12 | 0 | **0.0** | 0.0 | stood down — tape gate rejected all 4 arrows, worth −62.5. Gate saved 62.5. |
+| 2026-08-13 | 0 | **0.0** | 0.0 | stood down — leg gate cut the one tape survivor (+30). v1 was +180. Gate cost 30, or 180 against ungated. |
+| 2026-08-14 | 2 | **−40.0** | −40.0 | both stopped; leg gate neutral |
+| 2026-08-17 | 1 | **−20.0** | −20.0 | stopped |
+| 2026-08-18 | 3 | **−10.0** | −1.5 | leg gate turned a positive tape-only day (+20.0) negative by cutting a +30 |
+| 2026-08-19 | 5 | **−50.0** | −16.8 | most trades in one session so far. Four of the five clustered 10:56-11:22 and all four stopped. |
+| 2026-08-20 | 1 | **+1.2** | +1.2 | unresolved at 12:00; exits at last close, the only such trade in the record |
 
 ⧉ = recovered from Databento rather than NinjaTrader. See § Recovering lost sessions.
 
-**Twenty-five trades means nothing yet.** One different fill still swings the sign. Do not
-read a result into this number, and do not adjust anything because of it.
+**Fifty-two trades still means nothing.** One different fill swings the sign of the whole
+tally, because the tally is now +31.7 points. Do not read a result into this number, and do
+not adjust anything because of it.
+
+## 2026-08-21 — the worst stretch of the forward test, and it settles nothing
+
+**18 new trades, −188.8 fixed points, 4 winners of 18. Per-trade goes +6.49 → +0.61.**
+
+Scored `Replay Data/NQ/August 2-21.txt` (NinjaTrader, 9 new sessions 8/10-8/20, full RTH).
+8/21 is in the file but has no RTH bars: the export was taken 07:44 ET, before the open.
+
+| | before | now |
+|---|---|---|
+| trades | 34 | **52** |
+| points (fixed) | +220.5 | **+31.7** |
+| per trade | +6.49 | **+0.61** |
+| win rate | 56% | **44%** |
+| Trail30 points | +138.8 | **−5.2** |
+| progress to ~1,000 | 3.4% | **5.2%** |
+
+**The forward mean is now +0.61/trade against a historical +3.08 and a placebo of +0.00.**
+It sits between them and is statistically indistinguishable from either. Forward t ≈ 0.2
+(mean +0.61, sd ≈ 22, n = 52).
+
+**The arithmetic that matters, and it cuts both ways.** If the true edge is the historical
++3.08 with sd 22, then over 52 trades you expect **+160 ± 159 points at one standard
+deviation**. The observed +31.7 is 0.8 sd below that. So this stretch does *not* reject the
+historical edge — it is an ordinary draw from it. It is equally an ordinary draw from zero.
+**52 trades cannot tell +3.08 from +0.00.** That is not a disappointment, it is the reason
+the pre-registered gate is n > 400 and not n > 50. Both the +10.02 high on 8/03 and this
+low are the same object: noise at small n. Reacting to either would be the error.
+
+**Consistency check passed again, and wider.** 8/3-8/7 appear in this export and in the
+8/2-8/9 one. All five sessions re-score **identically** — same trade counts, same entries,
+same fixed and trail totals. 8/3 now agrees across **three** independent NinjaTrader
+exports. The loader is not the source of variance.
+
+**Correlated clusters, third occurrence — and now it is a pattern.** 8/5 was three re-entries
+on one failing leg. This export has two more:
+
+- **8/11**, three stops at 10:06:20 / 10:37:00 / 10:54:40, entries 29778.50 / 29775.25 /
+  29794.50, all within 20 points, all −20.
+- **8/19**, four stops at 10:56:40 / 10:59:00 / 11:04:20 / 11:22:40, entries 29609.25 /
+  29619.25 / 29601.50 / 29624.50, all within 23 points, all −20. The day's one winner was
+  earlier and unrelated (10:31:00, +30).
+
+**7 of the 18 new trades sit in two clusters.** The spec counts them as 7 because the spec
+does not move, but the independent information here is closer to 2 bets than 7, and the
+same was true on 8/5. Across the whole forward record the clusters are consistently
+*losses*, which is what a re-entry rule would be expected to catch. **Still not actionable:**
+the gate is n > 400 and noticing a candidate fix while losing is exactly the condition under
+which fixes get invented. Logged, dated, and deliberately not tested.
+
+**The v1-beats-v2 pattern weakened.** v2 beat v1 on **8 of the 9** new sessions, several
+decisively (8/20: v1 −98.8 → v2 +1.2; 8/17: −80 → −20; 8/11: −140 → −60). The count of
+v1-beating-v2 sessions goes 5 → **6**, adding only 8/13, where the leg gate cut the single
+tape survivor and stood the bot down on a day v1 made +180. On the 8/09 read this looked
+like a live doubt about the gates; on this sample the gates earned their keep. Keep counting,
+keep not acting.
+
+**New: the leg gate cost money twice in one week** (8/13 stood down a +30 tape trade on a
++180 v1 day; 8/18 turned a +20.0 tape-only day into −10.0). Two sessions. This is the same
+class of observation as the 7/30-7/31 note below and gets the same treatment: watch, do not
+act.
+
+**Cadence note.** Ad-hoc pull again, not the annual one. The annual-pull plan is unchanged.
+
+---
+
+## 2026-08-09 — first losing week, and it is the regression that was pre-registered
+
+The 8/3-8/7 export (`Replay Data/NQ/8-2 to 8-9.txt`, NinjaTrader, full RTH coverage) added
+four new sessions for **9 trades and −30.0 fixed points**, 3 winners of 9. Per-trade went
+**+10.02 → +6.49**.
+
+**This was predicted in writing.** The 8/03 entry said the forward +10.02 was running well
+above the historical +3.08, that at n=25 it was noise, and to expect regression. It regressed
+on the first new week. Nothing about the frozen spec changes.
+
+**8/5 is one event, not three.** The three losing entries were 11:35:40, 11:37:00 and
+11:39:40 at 29833.75 / 29841.25 / 29843.25 — the same up-leg failing, re-entered twice as it
+went. All three stopped. The tally counts 3 trades because the spec says so and the spec does
+not move, but the *independent* information in that session is closer to one bet than three.
+Same shape as the cross-asset simultaneity error caught 2026-08-04: **correlated observations
+inflate n without adding evidence.** Worth a re-entry-cooldown test one day; not now, the
+pre-registration gate is forward n > 400 and we are at 34.
+
+**Consistency check passed.** 8/3 was already in this record at +48.5 fixed / +35.5 trail from
+a different export (`7.27 to 8.03.txt`). Re-scored from the new file it returns +48.5 / +35.5,
+n=2, same two entries. Two NinjaTrader exports of the same session agree exactly.
+
+**The v1-beats-v2 count is now five** (7/22, 7/28, 8/3, 8/6, 8/7). Still logged, still not
+acted on, but it is no longer a two-session curiosity. If it is still there at n > 400 it is
+the first thing to look at.
 
 **Watch, do not act on:** on 7/30 and 7/31 the ungated v1 was heavily negative and the
 tape gate alone flipped both positive, while the leg gate contributed nothing. Two
