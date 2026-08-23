@@ -36,8 +36,11 @@ my live discretionary exit, is logged alongside for a me-vs-bot comparison only.
 - **Pre-registered forward test** — `FORWARD_RECORD.md` + `src/forward_v2.py`. A frozen
   spec, gates set in advance (no new historical test until forward n > 400), appended to and
   never edited. This is the live, honest tally.
-- **Cross-asset validation** — the same rule re-applied to an independent contract via
-  Databento tick data.
+- **Cross-asset validation** — the frozen NQ rule re-run on other futures (crude, gold,
+  heating oil, gasoline, Bitcoin). Mostly nulls or net-flat after costs, which is the honest
+  and useful result: the edge is largely NQ-specific and was not p-hacked into working
+  elsewhere. Suspicious results were audited for bugs, and two porting-spec errors were
+  found and corrected in the open.
 
 ## Repo map (what to read first)
 
@@ -50,6 +53,10 @@ The pipeline is ~30 small scripts. Start here:
   `eval_real.py`
 - **Live alerting** — `copilot_alerts.py` · `ninjascript/NQEdgeCoPilot.cs` ·
   `ninjascript/NQTapeLogger.cs`
+- **Cross-asset validation** — `cross_asset_v2.py` · `breadth_check.py` · `btc_test.py` ·
+  `cl_test.py` · `ho_test.py` · `rb_test.py` · the `audit_gold*` / `gold_*` source-reconciliation
+  set · `atr_sensitivity.py` · `vol_regime.py`: the NQ rule ported to other futures, with the
+  suspicious results audited and the porting-spec errors corrected out loud.
 - **Research trail** — the `experiment_*.py` and `eval_*.py` / `compare_*.py` files: every
   rule change tested against the baseline, dead ends included.
 
