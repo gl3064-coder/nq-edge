@@ -1,32 +1,76 @@
-# NQ Edge: Quantitative Trading Research Pipeline
+# NQ Edge — Quantitative Trading Research Pipeline
 
-A Python pipeline that analyzes my own journaled NQ futures trades, turns discretionary
-intuition into quantified, testable rules, and grades trade setups using the same rigor
-(Sharpe, information ratio, expectancy, out-of-sample validation) used to evaluate real
-strategies.
+A Python research pipeline that takes my own journaled NQ futures trades, turns
+discretionary intuition into quantified, testable rules, and grades every setup with the
+same discipline used to evaluate a real strategy: expectancy, Sharpe, information ratio,
+and out-of-sample plus multiple-testing controls.
 
-![pipeline](docs/pipeline.png)
+The headline is deliberately modest, and that is the point. The entry edge is real but
+small (t ≈ 1.9 gross / 1.45 net over ~235 trades), and it was found only after trying
+~75 configurations. So rather than overclaim it, the strategy is **frozen and running a
+pre-registered forward test** before any further historical work. What this repo
+demonstrates is the research process, not a turnkey money printer.
 
-## What it does
-A modular signal pipeline that grades long setups:
-- **context**: trend / regime filter (moving-average based)
-- **location**: higher-low pullback detection
-- **drawdown**: requires a genuine pullback before entry
-- **scoring**: grades each setup by expectancy, Sharpe, and information ratio
+## The signal pipeline
 
-A research layer (`eval_*.py`, `experiment_*.py`) back-tests any rule change against the baseline.
+Each long setup passes through:
+
+1. **context** — trend / regime filter (moving-average based); longs only in up-context.
+2. **location** — higher-low pullback detection.
+3. **drawdown** — requires a genuine pullback before entry.
+4. **tape gate** — order-flow confirmation (buy-delta) and a young-leg age cap.
+5. **scoring** — grades the setup by expectancy, Sharpe, and information ratio.
+
+The bot's exit is a fixed +30 / −20 bracket, and the t-stat is denominated in that. Trail30,
+my live discretionary exit, is logged alongside for a me-vs-bot comparison only.
+
+## The part that matters: how hard I tried to kill it
+
+- **Multiple-testing audit** — `src/significance_audit.py`. Deflated Sharpe, minimum
+  backtest length, and the Harvey-Liu-Zhu t > 3.0 hurdle: how much of the t-stat survives
+  the ~75 trials actually run, and how much forward data is needed to settle it (~1,000
+  trades for t > 3.0).
+- **Placebo entry test** — `src/placebo_entry.py`. A random entry in the same window with
+  the same bracket earns +0.00 pts/trade; the bot sits at the 97.5th percentile. This rules
+  out intraday drift as the explanation, since the bot is long-only.
+- **Pre-registered forward test** — `FORWARD_RECORD.md` + `src/forward_v2.py`. A frozen
+  spec, gates set in advance (no new historical test until forward n > 400), appended to and
+  never edited. This is the live, honest tally.
+- **Cross-asset validation** — the same rule re-applied to an independent contract via
+  Databento tick data.
+
+## Repo map (what to read first)
+
+The pipeline is ~30 small scripts. Start here:
+
+- **Core signal** — `context.py` · `location.py` · `drawdown.py` · `scorer.py` ·
+  `step2_filter.py` · `edge_check.py`
+- **Data** — `load.py` · `ticks.py` · `databento_bars.py` · `pull_databento.py`
+- **Rigor / validation** — `significance_audit.py` · `placebo_entry.py` · `forward_v2.py` ·
+  `eval_real.py`
+- **Live alerting** — `copilot_alerts.py` · `ninjascript/NQEdgeCoPilot.cs` ·
+  `ninjascript/NQTapeLogger.cs`
+- **Research trail** — the `experiment_*.py` and `eval_*.py` / `compare_*.py` files: every
+  rule change tested against the baseline, dead ends included.
 
 ## Methodology
-- Built from ~530 personally journaled NQ trades plus real tick data resampled to 20-second bars.
-- Performance attribution: per-setup expectancy, daily Sharpe, information ratio, drawdown.
-- Overfitting-aware: out-of-sample testing, and no knob-tuning on small samples.
+
+- Built from ~530 personally journaled NQ trades plus real tick data resampled to
+  20-second bars.
+- Attribution per setup: expectancy, daily Sharpe, information ratio, drawdown.
+- Overfitting-aware: out-of-sample testing, pre-registered forward gates, and no
+  knob-tuning on small samples.
 - Headline finding (kept general): trade *management* and *volatility regime* drove the
-  results far more than entry selection. The raw entry signal is a watchlist, not an auto-trader.
+  results far more than entry selection. The raw entry signal is a watchlist, not an
+  auto-trader.
 
 ## Stack
-Python · pandas · NumPy · matplotlib · statsmodels · yfinance · NinjaScript (C#) for the
-live alerting indicator.
 
-## Note
-Raw trade data and exact tuned parameters are withheld (personal / proprietary). This repo
-demonstrates the methodology and architecture, not a turnkey strategy.
+Python · pandas · NumPy · statsmodels · matplotlib · Databento (tick data) · NinjaScript
+(C#) for the live indicator.
+
+## Data note
+
+Raw trade data, licensed feeds, and exact tuned parameters are withheld (personal /
+proprietary; see `.gitignore`). This repo shows the methodology and architecture, not a
+turnkey strategy.

@@ -22,7 +22,7 @@ STYPE   = "continuous"               # front-month continuous (auto-roll)
 SYMBOLS = ["ES.c.0"]                  # start here; later: ["CL.c.0","GC.c.0","ZN.c.0"]
 START   = "2026-01-01"               # match your NQ window first (cheap, clean replication)
 END     = "2026-07-01"
-OUTDIR  = Path(r"C:\Users\lgavi\OneDrive\Desktop\NQ Edge\Replay Data\databento")
+OUTDIR  = Path(__file__).resolve().parent.parent / "Replay Data" / "databento"
 
 client = db.Historical()             # reads DATABENTO_API_KEY from env
 
