@@ -4,8 +4,16 @@ the multiple testing we actually did, and how much forward sample is required
 to settle it.
 
 Sources:
-  Bailey & Lopez de Prado (2014), "The Deflated Sharpe Ratio" -- the E[max SR]
-      under the null of zero skill across N independent trials.
+  Bailey & Lopez de Prado (2014), "The Deflated Sharpe Ratio" -- source for the
+      E[max SR] benchmark used in PART 1: the highest t you expect from N
+      independent zero-skill trials.
+      NOTE: this script implements that BENCHMARK ONLY. It is not a Deflated
+      Sharpe Ratio. A real DSR also needs the variance of the Sharpe ratios
+      across the trials and the skew and kurtosis of the return series. This
+      script takes a trial COUNT and assumes the trials are independent. Mine
+      are not: they are variations on one idea. Read PART 1 as a
+      multiple-testing sanity check, and read the effective N as well below
+      the raw count of ~75.
   Bailey, Borwein, Lopez de Prado & Zhu (2014), "Pseudo-Mathematics and
       Financial Charlatanism" -- Minimum Backtest Length.
   Harvey, Liu & Zhu (2016) -- the argument for a t > 3.0 hurdle after
@@ -60,8 +68,11 @@ def main():
     print()
     print("=" * 68)
     print("PART 1 -- WHAT NOISE ALONE WOULD HAVE PRODUCED")
-    print("  E[max t] from N independent zero-skill configurations.")
+    print("  E[max t] from N INDEPENDENT zero-skill configurations.")
     print("  Compare each to our observed t = 1.92.")
+    print("  CAVEAT: this is a multiple-testing sanity check, NOT a Deflated")
+    print("  Sharpe Ratio. My ~75 trials were variations on one idea, so they")
+    print("  are heavily correlated and the effective N is well below 75.")
     print("=" * 68)
     print(f"  {'N trials':>10} {'E[max t]':>10}   verdict vs observed")
     for n in (2, 5, 10, 15, 25, 50, 80):
@@ -111,10 +122,20 @@ def main():
   and we tried far more than 10 (though heavily correlated, so the
   effective N is smaller than the raw count).
 
-  This does not say the edge is fake. The Databento cross-asset result
-  (gross-positive on crude and bonds) and the live-delta validation are
-  evidence the mechanism is real, and they are evidence the historical
-  t-stat cannot supply.
+  This does not say the edge is fake. Two things are evidence the
+  historical t-stat cannot supply: the placebo entry test
+  (src/placebo_entry.py -- random entries in the same window with the same
+  bracket earn +0.00 pts/trade, putting the bot at the 97.5th percentile)
+  and the live-delta validation.
+
+  RETRACTED 2026-08-04. An earlier version of this note also cited the
+  cross-asset result as evidence the mechanism is real. That claim is
+  WITHDRAWN. Auditing the port found two scaling errors: it hardcoded
+  A_NQ = 17.0 when NQ's measured session median 20s true range is 11.75,
+  and it measured instrument ATRs all-hours while the bot trades the NY
+  session only. Corrected, the cross-asset tests are not disproven but
+  UNINFORMATIVE at these sample sizes. They are not evidence either way,
+  and they are not a validation pillar.
 
   It does say the HISTORICAL sample can no longer settle the question,
   because we have searched it. Only out-of-sample forward data carries

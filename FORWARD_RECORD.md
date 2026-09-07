@@ -371,8 +371,16 @@ against the frozen bot's **+3.08**, putting the bot at the **97.5th percentile**
 
 **What it settles:** the edge is not intraday drift. The bot is long-only, so drift was
 a live alternative explanation, and it is now ruled out — everything it earned came from
-*when* it chose to be long. This is the third piece of evidence from outside the searched
-sample, alongside the Databento cross-asset result and the live-delta validation.
+*when* it chose to be long. Alongside the live-delta validation, this is one of **two**
+pieces of evidence the historical t-stat cannot supply.
+
+> **Corrected 2026-09-07.** This paragraph used to call the placebo test the *third* such
+> piece of evidence, "alongside the Databento cross-asset result." The cross-asset pillar
+> was retired 2026-08-04 on a scaling-anchor bug: the port hardcoded `A_NQ = 17.0` when
+> NQ's measured session median 20s true range is 11.75, and it measured instrument ATRs
+> all-hours while the bot trades the NY session only. Corrected, those tests are **not
+> disproven but uninformative** at these sample sizes. They are not supporting evidence.
+> The count is two, not three.
 
 **What it does not settle:** the search problem, which remains the main doubt. Drift and
 selection bias are different failure modes and this test speaks only to the first. The
