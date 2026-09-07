@@ -53,16 +53,17 @@ round, the right move would have been to keep Trail30 and eat the worse number.
 
 | | fixed +30/-20 (official) | Trail30 (his ATM) |
 |---|---|---|
-| **Trades** | **52** | 52 |
-| **Points** | **+31.7** | −5.2 |
-| **Per trade** | **+0.61** | −0.10 |
-| **Win rate** | 44% | 44% |
-| **Approx. $ on 1 contract** | **+$634** | −$104 |
-| Progress to 1,000 | **5.2%** | — |
+| **Trades** | **58** | 58 |
+| **Points** | **−38.3** | −81.2 |
+| **Per trade** | **−0.66** | −1.40 |
+| **Win rate** | ~41% | ~41% |
+| **Approx. $ on 1 contract** | **−$766** | −$1,624 |
+| Progress to 1,000 | **5.8%** | — |
 
-*Last updated 2026-08-21, after the 8/2-8/21 export. The prior tally (34 trades,
-+220.5, +6.49/trade, 56%) is superseded, not deleted. Trail30 has crossed into
-negative for the first time.*
+*Last updated 2026-08-31, after the up-to-8-31 export — **the last export before the
+NinjaTrader data sub expires.** The prior tally (56 trades, +1.7, +0.03/trade, ~43%) is
+superseded, not deleted. The fixed number is negative for the first time. This is where
+the count sits until the annual pull.*
 
 ## Sessions
 
@@ -99,12 +100,122 @@ Me vs Bot (Daily)). This file is the project-side mirror. Log every session ther
 | 2026-08-18 | 3 | **−10.0** | −1.5 | leg gate turned a positive tape-only day (+20.0) negative by cutting a +30 |
 | 2026-08-19 | 5 | **−50.0** | −16.8 | most trades in one session so far. Four of the five clustered 10:56-11:22 and all four stopped. |
 | 2026-08-20 | 1 | **+1.2** | +1.2 | unresolved at 12:00; exits at last close, the only such trade in the record |
+| 2026-08-21 | 3 | **−10.0** | −16.0 | 3 entries in 16 min (10:32-10:48), all within 11 pts, 2 of 3 stopped. Fourth cluster. |
+| 2026-08-24 | 0 | **0.0** | 0.0 | stood down — tape gate rejected all arrows. v1 −60, tape-only −20. Gate saved money. |
+| 2026-08-25 | 0 | **0.0** | 0.0 | stood down — tape gate cut two early winners (v1 +20 fixed / +62.8 trail). Gate cost a green day. |
+| 2026-08-26 | 1 | **−20.0** | −20.0 | heavy down day; v1 −150, bot took one and stopped. Gate saved ~130. |
+| 2026-08-27 | 0 | **0.0** | 0.0 | stood down — no arrow cleared tape 0.10 (max 0.093). v1 −34.5. Gate saved 34.5. |
+| 2026-08-28 | 0 | **0.0** | 0.0 | stood down — no arrow cleared tape 0.10 (max 0.073). v1 **+100.0** fixed / +132.0 trail on a 6-winner run. Largest gate cost in the record. |
+| 2026-08-31 | 2 | **−40.0** | −40.0 | v1 went 0-for-8. Bot took 2, both stopped, entries 0.5 pts apart 21 min apart. Fifth cluster. Gate saved 120. |
 
 ⧉ = recovered from Databento rather than NinjaTrader. See § Recovering lost sessions.
 
-**Fifty-two trades still means nothing.** One different fill swings the sign of the whole
-tally, because the tally is now +31.7 points. Do not read a result into this number, and do
-not adjust anything because of it.
+**Fifty-eight trades still means nothing.** Two different fills swing the sign of the whole
+tally, because the tally is −38.3 points and one trade is worth 20 to 30. Do not read a
+result into this number, and do not adjust anything because of it.
+
+## 2026-08-31 — the last NinjaTrader export, and the tally goes negative
+
+**3 new sessions (8/27, 8/28, 8/31), 2 new trades, −40.0 fixed points, 0 winners of 2.
+Per-trade goes +0.03 → −0.66. This is the final ad-hoc pull: the NT data sub expires,
+and the count is parked here until the annual pull.**
+
+Scored `Replay Data/NQ/up to 8-31.txt` (NinjaTrader, full RTH). No sessions are missing —
+8/29 and 8/30 are the weekend, and 8/24-8/26 overlap the previous export.
+
+| | before | now |
+|---|---|---|
+| trades | 56 | **58** |
+| points (fixed) | +1.7 | **−38.3** |
+| per trade | +0.03 | **−0.66** |
+| win rate | ~43% | **~41%** |
+| Trail30 points | −41.2 | **−81.2** |
+| progress to ~1,000 | 5.6% | **5.8%** |
+
+**The same arithmetic, and it still cuts both ways.** If the true edge is the historical
++3.08/trade with sd 22, then across 58 trades you expect **+179 ± 168 points at one standard
+deviation**. Observed −38.3 is 1.3 sd below that — a poor draw, not a rejection. Against a
+true edge of zero it is 0.23 sd below, which is nothing at all. Forward t ≈ **−0.23**. The
+forward mean has walked +10.02 (n=25) → +6.49 (n=34) → +0.61 (n=52) → +0.03 (n=56) →
+**−0.66 (n=58)**. Two trades moved it 0.69 points. That is the whole story of n=58.
+
+**Nothing changed and nothing should.** Spec frozen. No new historical test until forward
+n > 400. The tally crossing zero is not a signal; it is what a ±20/+30 payoff does to a
+58-trade average.
+
+**Four things logged, none actionable:**
+
+1. **The gate cost a big green day — the largest cost in the record.** On 8/28 v1 fired 10
+   arrows and made **+100.0 fixed / +132.0 trail**, including six straight winners from
+   10:28 to 10:52. The bot stood down: not one arrow cleared tape 0.10 (max was 0.073). Same
+   class as 8/13, 8/18, 8/25. **v1-beats-v2 count goes 7 → 8.** Watch, do not act.
+2. **The gate also earned its keep on the other two.** 8/27: v1 −34.5 → v2 0.0. 8/31: v1
+   −160.0 (0-for-8, every arrow stopped) → v2 −40.0. Across the three sessions the gate net
+   saved 54.5 fixed points; on the two red days it saved 154.5.
+3. **Cluster pattern, fifth occurrence — and it is both new trades.** 8/31's two v2 entries
+   were 10:21:20 @ 29421.00 and 10:42:00 @ 29420.50 — **0.5 points apart, 21 minutes apart**,
+   both stopped. Same shape as 8/5, 8/11, 8/19, 8/21. A re-entry cooldown remains the obvious
+   candidate and remains untested until after n > 400.
+4. **The loader is clean, confirmed a fifth time.** 8/24 (0.0), 8/25 (0.0) and 8/26 (−20.0)
+   re-score identically from this export — same trade counts, same entries, same fixed and
+   trail totals.
+
+**Cadence note — this one is different.** Every prior update said "ad-hoc pull, the annual
+plan is unchanged." **This is the last ad-hoc pull.** The NT data sub expires, so the forward
+count freezes at n=58 until the annual pull (~$12 for one month of data, target ~Aug 2027).
+NT retains 12 months of ticks, so a pull inside that window loses nothing: it should return
+~250 sessions ≈ ~560 trades, which on its own takes n from 58 to ~620 and clears the n > 400
+gate outright. **Nothing is lost by the gap. Missing the 12-month window is the only real
+risk** — those ticks would be gone from NT permanently.
+
+---
+
+## 2026-08-26 — the fixed tally reaches zero, which settles nothing either
+
+**4 new trades, −30.0 fixed points, 1 winner of 4. Per-trade goes +0.61 → +0.03.**
+
+Scored `Replay Data/NQ/Up to 8-26.txt` (NinjaTrader, 4 new sessions 8/21, 8/24, 8/25, 8/26,
+full RTH). 8/21 finally has RTH bars — the 8/2-8/21 export was taken before that day's open,
+so 8/21 was never scored until now.
+
+| | before | now |
+|---|---|---|
+| trades | 52 | **56** |
+| points (fixed) | +31.7 | **+1.7** |
+| per trade | +0.61 | **+0.03** |
+| win rate | 44% | **~43%** |
+| Trail30 points | −5.2 | **−41.2** |
+| progress to ~1,000 | 5.2% | **5.6%** |
+
+**The number to hold onto, same as last time.** If the true edge is the historical +3.08/trade
+with sd 22, then across 56 trades you expect **+172 ± 165 points at one standard deviation**.
+Observed +1.7 is 1.0 sd below that. It is an ordinary draw from the historical edge and an
+equally ordinary draw from zero. The forward mean has gone +6.49 (n=34) → +0.61 (n=52) →
+**+0.03 (n=56)**, which is regression toward *either* +3.08 or +0.00 — 56 trades cannot tell
+which. Forward t ≈ 0.01. **Nothing changed, nothing should. The gate is n > 400.**
+
+**Four things logged, none actionable:**
+
+1. **The cluster pattern held a fourth time.** 8/21's three V2 entries were 10:32:20,
+   10:46:00, 10:48:20 at 29304.25 / 29314.75 / 29306.00 — all within 11 points across 16
+   minutes, 2 of 3 stopped, the last two 2 minutes apart at the same price. Same shape as 8/5,
+   8/11, 8/19. **3 of the 4 new trades sit in one cluster.** A re-entry cooldown remains the
+   obvious candidate and remains untested until after n > 400.
+2. **The loader is clean, confirmed a fourth time.** 8/19 (−50.0) and 8/20 (+1.2) re-score
+   identically from this export — same trade counts, same entries, same fixed and trail
+   totals.
+3. **The gate cut winners on a green day again, now the tape gate.** 8/25 v1 made +20 fixed /
+   +62.8 trail on two early winners (11:19:40, 11:24:20); the frozen bot stood down because the
+   tape read 0.010 and 0.069, below the 0.10 gate. This is the same class of event as the 8/13
+   and 8/18 leg-gate notes, but caused by the *tape* gate. Watch, do not act.
+4. **v1-beats-v2 count goes 6 → 7**, adding 8/25 (the green day above). On the other three new
+   sessions v2 beat v1 decisively (8/26: v1 −150 → v2 −20; 8/24: v1 −60 → v2 0; 8/21: v1 −50 →
+   v2 −10). The gates still earn their keep on the losing tape; 8/25 is the exception, and it is
+   the same exception as before.
+
+**Cadence note.** Ad-hoc pull again, not the annual one. The annual-pull plan is unchanged.
+
+---
 
 ## 2026-08-21 — the worst stretch of the forward test, and it settles nothing
 
