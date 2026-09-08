@@ -4,8 +4,9 @@ The frozen NQ rule, ported to other futures. This file exists because the first 
 this test was **wrong, published, and retracted**, and the honest thing is to show the
 whole sequence rather than only the final number.
 
-**Verdict: the edge is NQ-specific.** Seven instruments tested. One works. The rest are
-null or negative after costs, at sample sizes large enough to say so.
+**Verdict: the edge is NQ-specific.** The frozen rule was ported to **six other
+instruments** (crude, gold, bonds, heating oil, gasoline, Bitcoin). None of them survives
+costs, at sample sizes large enough to say so.
 
 ---
 
@@ -143,8 +144,8 @@ feature (tick size, participant mix, futures-index basis dynamics) rather than a
 buyers-pressing-into-drawdown pattern. This is a scope statement and a limitation.
 
 **Also supported, and it is the point.** The search was not continued until something
-worked. Five instruments were tested and reported as nulls, including one that cost money
-to test.
+worked. Six instruments were tested and every one reported as a null, including one that
+cost money to test.
 
 **NOT supported, and previously claimed in error:** that these results are evidence the
 mechanism is *real*. Null results elsewhere cannot validate a result here. That claim
@@ -165,4 +166,6 @@ test and the live-delta validation.
   The 8/05 re-tests (`cl_test.py`, `rb_test.py`, `btc_test.py`, `vol_regime.py`) follow the
   same template. Treat the numbers as provisional in that sense.
 - The 8/05 runs were pre-registered, one run each, `A_NQ = 11.750`.
-- Instruments tested: NQ, GC, ZN, CL, HO, RB, BTC. **Seven.** One works.
+- Ported to **six** instruments beyond NQ: GC, ZN, CL, HO, RB, BTC. None survives costs.
+  ZN was tested on Databento data (`Replay Data/databento/CLGCZN_6mo_2026-01_2026-07.dbn`)
+  rather than a NinjaTrader replay folder, which is why it has no `zn_test.py`.

@@ -41,8 +41,9 @@ my live discretionary exit, is logged alongside for a me-vs-bot comparison only.
   spec, gates set in advance (no new historical test until forward n > 400), appended to and
   never edited. This is the live, honest tally.
 - **Cross-asset tests — a null, a retraction, and the full record** → [`docs/CROSS_ASSET_RESULTS.md`](docs/CROSS_ASSET_RESULTS.md).
-  The frozen NQ rule ported to crude, gold, bonds, heating oil, gasoline and Bitcoin.
-  **Seven instruments tested, one works.** The July 2026 version of this test was wrong
+  The frozen NQ rule ported to **six other instruments**: crude, gold, bonds, heating
+  oil, gasoline and Bitcoin. **None of them survives costs.** The July 2026 version of
+  this test was wrong
   (it hardcoded `A_NQ = 17.0` when NQ's measured session median 20s true range is 11.75,
   and measured other instruments' ATRs all-hours while the bot trades the NY session
   only), was published, and was **retracted 2026-08-04**. The full-year re-test at
