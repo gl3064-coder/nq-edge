@@ -133,9 +133,16 @@ def main():
   WITHDRAWN. Auditing the port found two scaling errors: it hardcoded
   A_NQ = 17.0 when NQ's measured session median 20s true range is 11.75,
   and it measured instrument ATRs all-hours while the bot trades the NY
-  session only. Corrected, the cross-asset tests are not disproven but
-  UNINFORMATIVE at these sample sizes. They are not evidence either way,
-  and they are not a validation pillar.
+  session only.
+
+  The full-year re-test (2026-08-05, n=294-532 per instrument) then
+  settled it with real power: null or negative after costs on every
+  instrument except NQ. So the cross-asset tests are NOT uninformative,
+  they are a properly powered NULL. What that supports is that the edge
+  is NQ-SPECIFIC, which is a limitation on scope. It is not, and never
+  was, evidence that the mechanism here is real -- nulls elsewhere
+  cannot validate a result here. Full record and every number:
+  docs/CROSS_ASSET_RESULTS.md
 
   It does say the HISTORICAL sample can no longer settle the question,
   because we have searched it. Only out-of-sample forward data carries

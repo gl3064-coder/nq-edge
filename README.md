@@ -40,16 +40,18 @@ my live discretionary exit, is logged alongside for a me-vs-bot comparison only.
 - **Pre-registered forward test** — `FORWARD_RECORD.md` + `src/forward_v2.py`. A frozen
   spec, gates set in advance (no new historical test until forward n > 400), appended to and
   never edited. This is the live, honest tally.
-- **Cross-asset tests — RETIRED, and that is the point** — the frozen NQ rule was re-run
-  on other futures (crude, gold, heating oil, gasoline, Bitcoin). Mostly nulls or net-flat
-  after costs. I originally read that as showing the edge is NQ-specific rather than
-  p-hacked. **That reading is withdrawn (2026-08-04).** Auditing my own port turned up two
-  scaling errors: it hardcoded `A_NQ = 17.0` when NQ's measured session median 20s true
-  range is 11.75, and it measured instrument ATRs all-hours while the bot trades the NY
-  session only. Corrected, these tests are **not disproven but uninformative** at these
-  sample sizes. They are not evidence either way and they are not a validation pillar.
-  Kept in the repo, retraction and all, because catching your own bug is the part worth
-  showing.
+- **Cross-asset tests — a null, a retraction, and the full record** → [`docs/CROSS_ASSET_RESULTS.md`](docs/CROSS_ASSET_RESULTS.md).
+  The frozen NQ rule ported to crude, gold, bonds, heating oil, gasoline and Bitcoin.
+  **Seven instruments tested, one works.** The July 2026 version of this test was wrong
+  (it hardcoded `A_NQ = 17.0` when NQ's measured session median 20s true range is 11.75,
+  and measured other instruments' ATRs all-hours while the bot trades the NY session
+  only), was published, and was **retracted 2026-08-04**. The full-year re-test at
+  **n=294-532 per instrument** then reached the same verdict with real power: null or
+  negative after costs everywhere except NQ. A vol-regime rescue hypothesis was tested and
+  killed at Welch t=0.97. What this supports is that the edge is **NQ-specific**, which is
+  a limitation. What it does **not** support, and what I wrongly claimed until 2026-09-07,
+  is that nulls elsewhere are evidence the mechanism here is real. The whole sequence is in
+  that file, bugs included, because catching your own bug is the part worth showing.
 
 ## Repo map (what to read first)
 

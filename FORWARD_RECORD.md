@@ -378,9 +378,12 @@ pieces of evidence the historical t-stat cannot supply.
 > piece of evidence, "alongside the Databento cross-asset result." The cross-asset pillar
 > was retired 2026-08-04 on a scaling-anchor bug: the port hardcoded `A_NQ = 17.0` when
 > NQ's measured session median 20s true range is 11.75, and it measured instrument ATRs
-> all-hours while the bot trades the NY session only. Corrected, those tests are **not
-> disproven but uninformative** at these sample sizes. They are not supporting evidence.
-> The count is two, not three.
+> all-hours while the bot trades the NY session only. The full-year re-test (2026-08-05,
+> n=294-532 per instrument) then settled it with real power: **a properly powered null**,
+> negative or flat after costs everywhere except NQ. That supports the edge being
+> **NQ-specific**, a limitation on scope. It is not supporting evidence for the mechanism,
+> because nulls elsewhere cannot validate a result here. The count is two, not three.
+> Full record: `docs/CROSS_ASSET_RESULTS.md`.
 
 **What it does not settle:** the search problem, which remains the main doubt. Drift and
 selection bias are different failure modes and this test speaks only to the first. The
